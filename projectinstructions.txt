@@ -1,0 +1,65 @@
+######## projectinstructions.txt ########
+# Titolo
+“MVP – NOME_APP” (social food diary)
+
+# Obiettivo business
+Entro 3 mesi voglio validare:
+- retention day-7 ≥ 25 %
+- ≥ 500 utenti attivi/mese su piano freemium.
+
+# Target utente
+18-35 anni, lifestyle healthy, Italia/UK; mobile-first.
+
+# Stack tecnologico
+- Front-end: **Next.js 14 App Router + TypeScript + Tailwind + shadcn/ui**
+- Backend: **Supabase** (PostgreSQL, Auth, Storage)
+- AI: OpenAI GPT-4o via Edge Functions
+- DevOps: Vercel (preview env), GitHub Actions (CI), Playwright (e2e)
+
+# Funzionalità core (P0)
+1. **Auth** (OAuth Google/Apple + magic link)
+2. **Food Diary** – CRUD pasti, calcolo macro (API USDA + ML OCR etichette)
+3. **Social Feed** – post ricette, like/commenti, profilo pubblico
+4. **Ricette AI** – suggerisci ricette dinamiche in base alla dispensa utente
+5. **Analytics** – grafico calorie, peso, macro weekly
+
+# Funzionalità P1 (nice-to-have)
+- Scan barcode → nutritional facts
+- Notifiche push promemoria pasti
+- Live chat con diet-coach AI
+
+# Design & UX
+- Palette: PASTELLO PRIMARY HEX #FF948C, SECONDARY #FFF0EB
+- Font: Inter; titoli semibold
+- Dark-mode opzionale; break-point mobile 375 px
+- WCAG 2.1 AA; LCP < 2,5 s 4G
+
+# Vincoli
+- Multilingua IT/EN (i18n routing)
+- GDPR & cifratura a riposo (dati sanitari)
+- Testing ≥ 80 % coverage
+- Documentazione Swagger per API interne
+
+# Deliverables
+- Repo Git con README “1-click deploy” su Vercel
+- Script `dev`, `build`, `db:migrate` e `seed`
+- Diagramma architettura (PlantUML)
+- Dataset seed utenti/ricette (JSON)
+
+# Acceptance criteria
+- Tutte le rotte API rispondono 2xx sotto 300 ms (locally)
+- CI verde su lint, test, type-check e e2e
+- Lighthouse score ≥ 90 performance/mobile
+
+# Milestones suggerite
+1. Scaffold + Auth  
+2. Diary CRUD + DB schema  
+3. Feed sociale + immagini  
+4. Ricette AI + prompt-engineering  
+5. Analytics + chart  
+6. Hardening, test, deploy prod
+
+# Done means
+App deployata su dominio staging, account demo condiviso, video demo ≤ 3 min.
+
+(End of file)
