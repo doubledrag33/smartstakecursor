@@ -1,65 +1,70 @@
-######## projectinstructions.txt ########
 # Titolo
-“MVP – NOME_APP” (social food diary)
+SmartStake – Contabilità scommesse (clone di BetAnalytix)
 
-# Obiettivo business
-Entro 3 mesi voglio validare:
-- retention day-7 ≥ 25 %
-- ≥ 500 utenti attivi/mese su piano freemium.
+# Obiettivi business
+• Validare entro 3 mesi con retention D7 ≥ 30 % e ≥ 1 000 scommesse registrate  
+• Monetizzazione: tier Pro + referral che regala 1 mese gratis (una sola volta)
 
 # Target utente
-18-35 anni, lifestyle healthy, Italia/UK; mobile-first.
+Scommettitori sportivi semi-pro (20-50 anni) – Europa & resto del mondo – desktop + mobile-web + PWA iOS.
 
-# Stack tecnologico
-- Front-end: **Next.js 14 App Router + TypeScript + Tailwind + shadcn/ui**
-- Backend: **Supabase** (PostgreSQL, Auth, Storage)
-- AI: OpenAI GPT-4o via Edge Functions
-- DevOps: Vercel (preview env), GitHub Actions (CI), Playwright (e2e)
+# Stack
+Frontend: Next.js 14 App Router + TypeScript + Tailwind + shadcn/ui  
+Backend: Supabase (PostgreSQL, Auth, Storage)  
+OCR: Tesseract.js in edge-function (fallback Vision API)  
+AI: GPT-4o - parsing naturale dell’evento & classificazione sport/lega  
+Results feed: SportdataAPI o The-Odds-API per verifica outcome  
+DevOps: Vercel + GitHub Actions + Playwright
 
 # Funzionalità core (P0)
-1. **Auth** (OAuth Google/Apple + magic link)
-2. **Food Diary** – CRUD pasti, calcolo macro (API USDA + ML OCR etichette)
-3. **Social Feed** – post ricette, like/commenti, profilo pubblico
-4. **Ricette AI** – suggerisci ricette dinamiche in base alla dispensa utente
-5. **Analytics** – grafico calorie, peso, macro weekly
+1. **Auth** OAuth Google/Apple + magic-link + 2FA facoltativa  
+2. **Bet Entry CRUD**  
+   • Inserimento manuale singolo  
+   • Upload batch (fino a 50 foto) → OCR+AI → autocompilazione riga scommessa  
+   • Campi: stake, odds, bookmaker, sport, evento (es. “Sinner vs Alcaraz”), mercato, stato  
+3. **Auto-verifica**  
+   • All’insert chiama feed risultati → se concluso ⇒ stato WON/LOST, altrimenti PENDING  
+   • Bottone “Verifica pending” esegue batch check (rate-limit safe)  
+4. **Dash & Filter**  
+   • Tabelle filtrabili per giorno / settimana / mese / anno + ricerca full-text  
+   • Row expandable: click → modal fullscreen con tutti i dettagli + foto originale  
+   • KPI: ROI, yield, profit/loss cumulato e per sport/bookmaker  
+5. **Multi-bankroll**  
+   • Crea N bankroll, switcher nell’header  
+   • Ogni bankroll ha UUID pubblico read-only → link condivisibile, no auth write  
+6. **Referral**  
+   • Genera referral-link univoco → al primo signup valido accredita 1 mese gratis  
+7. **i18n**  
+   • Selettore lingua; default in base a browser; iniziale IT & EN; facile estensione
 
-# Funzionalità P1 (nice-to-have)
-- Scan barcode → nutritional facts
-- Notifiche push promemoria pasti
-- Live chat con diet-coach AI
+# Funzionalità P1
+- Import/export CSV Betfair / Pinnacle  
+- Multi-valuta con FX live  
+- Notifiche push per eventi prossimi alla chiusura  
+- Report fiscale mensile (CSV)
 
 # Design & UX
-- Palette: PASTELLO PRIMARY HEX #FF948C, SECONDARY #FFF0EB
-- Font: Inter; titoli semibold
-- Dark-mode opzionale; break-point mobile 375 px
-- WCAG 2.1 AA; LCP < 2,5 s 4G
+Palette: #003049 primary · #D62828 accent · #F77F00 highlight  
+Dark-mode default, mobile-first 375 px breakpoint, WCAG 2.1 AA, LCP < 2.5 s 4G.
 
 # Vincoli
-- Multilingua IT/EN (i18n routing)
-- GDPR & cifratura a riposo (dati sanitari)
-- Testing ≥ 80 % coverage
-- Documentazione Swagger per API interne
+- GDPR & cifratura a riposo (dati finanziari)  
+- Tutte le API < 300 ms in localhost  
+- Lighthouse mobile ≥ 90 / 100  
+- Test coverage ≥ 80 %
 
 # Deliverables
-- Repo Git con README “1-click deploy” su Vercel
-- Script `dev`, `build`, `db:migrate` e `seed`
-- Diagramma architettura (PlantUML)
-- Dataset seed utenti/ricette (JSON)
+• Repo Git con README “1-click deploy” Vercel  
+• CI pipeline: lint, type-check, unit, e2e, build  
+• Diagramma PlantUML architettura  
+• Dataset seed: 2 utenti demo + 3 bankroll + 50 scommesse campione
 
-# Acceptance criteria
-- Tutte le rotte API rispondono 2xx sotto 300 ms (locally)
-- CI verde su lint, test, type-check e e2e
-- Lighthouse score ≥ 90 performance/mobile
-
-# Milestones suggerite
+# Milestones consigliate
 1. Scaffold + Auth  
-2. Diary CRUD + DB schema  
-3. Feed sociale + immagini  
-4. Ricette AI + prompt-engineering  
-5. Analytics + chart  
-6. Hardening, test, deploy prod
+2. DB schema + Bet CRUD + OCR pipeline  
+3. Auto-verifica + dashboard & filtri  
+4. Multi-bankroll + referral  
+5. Hardening, test, deploy staging
 
 # Done means
-App deployata su dominio staging, account demo condiviso, video demo ≤ 3 min.
-
-(End of file)
+App online su dominio staging, account demo, video demo ≤ 3 min.
