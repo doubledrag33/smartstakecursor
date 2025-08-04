@@ -1,0 +1,15 @@
+{
+  "projectName": "smartstake",
+  "build": {
+    "command": "npm run build"
+  },
+  "start": {
+    "command": "npm start"
+  },
+  "healthcheck": {
+    "path": "/api/health"
+  },
+  "environment": {
+    "NODE_ENV": "production"
+  }
+}
